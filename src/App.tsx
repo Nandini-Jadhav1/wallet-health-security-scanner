@@ -5,6 +5,7 @@ import { ProgressBar } from './components/ProgressBar';
 import { HealthScore } from './components/HealthScore';
 import { ApprovalTable } from './components/ApprovalTable';
 import { DemoLab } from './components/DemoLab';
+import { SaveReport } from './components/SaveReport';
 import { ToastProvider, useToast } from './components/Toasts';
 import { fetchApprovals } from './lib/scanner';
 import type { ApprovalRecord, ScanProgress, ScannedTokenInfo } from './lib/scanner';
@@ -603,7 +604,18 @@ function MainApp() {
               <HealthScore scoreResult={healthScore} />
             )}
 
-            
+            {/* On-Chain Checkpoint Card */}
+            {hasScanned && (
+              <SaveReport
+                signer={signer}
+                connectedAddress={connectedAddress}
+                scannedAddress={scannedAddress}
+                targetChainId={selectedChainId}
+                activeApprovalsCount={approvalsList.length}
+                highRiskCount={approvalsList.filter((i) => i.risk.level === 'HIGH').length}
+              />
+            )}
+
             {/* Approvals Table */}
             {hasScanned && (
               <ApprovalTable
