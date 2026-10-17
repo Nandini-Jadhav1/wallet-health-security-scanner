@@ -99,27 +99,27 @@ Score = Math.max(0, 100 - (High × 25) - (Medium × 10) - (Low/Info × 2))
 
 ## 📜 Smart Contracts (`/contracts`)
 
-All contracts feature complete NatSpec documentation and custom Solidity errors:
+All three contracts are bundled in the all-in-one deployable suite [`contracts/WalletHealthSuite.sol`](file:///c:/Users/Tuf/OneDrive/Desktop/Wallet%20“health%20check”%20scanner/contracts/WalletHealthSuite.sol) (zero external dependencies, ready for 1-click deployment in [Remix IDE](https://remix.ethereum.org)):
 
-| Contract | Purpose | Key Functions |
-| :--- | :--- | :--- |
-| **`DemoToken.sol`** | Test ERC-20 token (`DEMO`) on Sepolia | `faucet()` (mints 1,000 DEMO with a 1-minute anti-spam cooldown) |
-| **`DemoSpender.sol`** | Dapp simulator demonstrating vulnerability | `pull(token, from, amount)` (calls `IERC20.transferFrom`) |
-| **`HealthBadge.sol`** | On-chain audit registry | `recordCheck(activeApprovals, highRisk)`, `getLatestCheck(user)` |
+| Contract | Purpose | Key Functions | Deployed Sepolia Address |
+| :--- | :--- | :--- | :--- |
+| **`DemoToken`** | Test ERC-20 token (`DEMO`) on Sepolia | `faucet()` (mints 1,000 DEMO with a 1-min cooldown) | [`0xE10b98C899Bf0da9BEfe78396FBB5c8301717D28`](https://sepolia.etherscan.io/address/0xE10b98C899Bf0da9BEfe78396FBB5c8301717D28) |
+| **`DemoSpender`** | Dapp simulator demonstrating vulnerability | `pull(token, from, amount)` (calls `IERC20.transferFrom`) | [`0x664A73d54Fb02c7C4cEF8A9D4466590835f1a8c7`](https://sepolia.etherscan.io/address/0x664A73d54Fb02c7C4cEF8A9D4466590835f1a8c7) |
+| **`HealthBadge`** | On-chain audit registry | `recordCheck(activeApprovals, highRisk)`, `getLatestCheck(user)` | [`0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE`](https://sepolia.etherscan.io/address/0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE) |
 
 ### **Deployed Addresses Configuration**
-Deploy the three contracts to Sepolia via [Remix IDE](https://remix.ethereum.org) and add the addresses to [`src/contracts/addresses.ts`](file:///c:/Users/Tuf/OneDrive/Desktop/Wallet%20“health%20check”%20scanner/src/contracts/addresses.ts):
+The live contract addresses are configured in [`src/contracts/addresses.ts`](file:///c:/Users/Tuf/OneDrive/Desktop/Wallet%20“health%20check”%20scanner/src/contracts/addresses.ts):
 
 ```typescript
-export const DEPLOYED_ADDRESSES = {
+export const DEPLOYED_ADDRESSES: Record<number, ContractAddresses> = {
+  // Sepolia Testnet (Chain ID: 11155111)
   11155111: {
-    demoToken: '0xYourSepoliaDemoTokenAddress',
-    demoSpender: '0xYourSepoliaDemoSpenderAddress',
-    healthBadge: '0xYourSepoliaHealthBadgeAddress',
+    demoToken: '0xE10b98C899Bf0da9BEfe78396FBB5c8301717D28',
+    demoSpender: '0x664A73d54Fb02c7C4cEF8A9D4466590835f1a8c7',
+    healthBadge: '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE',
   },
 };
 ```
-*(You can also paste contract addresses directly inside the Demo Lab UI tab without modifying code).*
 
 ---
 

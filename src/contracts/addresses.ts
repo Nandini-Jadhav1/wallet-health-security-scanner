@@ -23,7 +23,7 @@ export const DEPLOYED_ADDRESSES: Record<number, ContractAddresses> = {
     demoSpender: '0x664A73d54Fb02c7C4cEF8A9D4466590835f1a8c7',
 
     // Paste deployed address of HealthBadge.sol here:
-    healthBadge: '0xE10b98C899Bf0da9BEfe78396FBB5c8301717D28',
+    healthBadge: '0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE',
   },
   // Ethereum Mainnet (Chain ID: 1)
   1: {
