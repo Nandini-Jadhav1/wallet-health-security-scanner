@@ -1,14 +1,13 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AddressInput } from './components/AddressInput';
 import { ChainSelect } from './components/ChainSelect';
 import { ProgressBar } from './components/ProgressBar';
 import { HealthScore } from './components/HealthScore';
 import { ApprovalTable } from './components/ApprovalTable';
 import { DemoLab } from './components/DemoLab';
-import { SaveReport } from './components/SaveReport';
 import { ToastProvider, useToast } from './components/Toasts';
 import { fetchApprovals } from './lib/scanner';
-import type { ApprovalRecord, ScanProgress, TokenScanError, ScannedTokenInfo } from './lib/scanner';
+import type { ApprovalRecord, ScanProgress, ScannedTokenInfo } from './lib/scanner';
 import { scoreApproval, calculateHealthScore } from './lib/risk';
 import type { RiskEvaluation, HealthScoreResult } from './lib/risk';
 import { useWallet } from './hooks/useWallet';
@@ -28,7 +27,6 @@ import {
   Plus,
   X,
   Coins,
-  AlertTriangle,
 } from 'lucide-react';
 
 interface ApprovalWithRisk {
@@ -78,7 +76,6 @@ function MainApp() {
     daysCovered: number;
   } | null>(null);
   const [scannedTokens, setScannedTokens] = useState<ScannedTokenInfo[]>([]);
-  const [chunkErrors, setChunkErrors] = useState<TokenScanError[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { addToast } = useToast();
@@ -198,7 +195,6 @@ function MainApp() {
     setScannedAddress(target);
     setIsScanning(true);
     setErrorMessage(null);
-    setChunkErrors([]);
     setScanProgress({
       currentChunk: 0,
       totalChunks: 0,
@@ -230,7 +226,6 @@ function MainApp() {
 
       setScannedRangeInfo(scanResult.scannedRange);
       setScannedTokens(scanResult.scannedTokens);
-      setChunkErrors(scanResult.errors);
 
       // Step: Risk scoring for each approval
       const evaluatedItems: ApprovalWithRisk[] = [];
